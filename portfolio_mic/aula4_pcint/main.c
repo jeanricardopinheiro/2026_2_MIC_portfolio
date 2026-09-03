@@ -8,6 +8,15 @@
 #include <xc.h>
 #include "avr/interrupt.h"
 #include "util/delay.h"
+#include <stdint.h>
+
+#define KEY_RELEASED 0
+#define KEY_PRESSED 1
+
+uint8_t gKeyState_w = 0;
+uint8_t gKeyState_a = 0;
+uint8_t gKeyState_s = 0;
+uint8_t gKeyState_d = 0;
 
 void GPIO_config(){
 	//mascara final: 0b1111 0000;
@@ -29,10 +38,27 @@ void GPIO_incBar(){
 }
 
 ISR(PCINT0_vect){
-	PORTC |= (1<<PORTC0); //seta pino PC0 (nivel 1)
-	_delay_ms(100);
-	PORTC &= ~(1<<PORTC0); //zera pino PC0
-	GPIO_incBar();
+	uint8_t tCurrentKeyState_w = 0;
+	if((PINB & (1<<PINB0)) !=0){ //testa pino PB0
+		//PB0 = 1, tecla w solta
+		tCurrentKeyState_w = KEY_RELEASED;
+	}else{
+		//PB0 = 0, tecla w pressionada
+		tCurrentKeyState_w = KEY_PRESSED;
+	}
+	
+	if(tCurrentKeyState_w == KEY_PRESSED && gKeyState_w ==  KEY_RELEASED){
+		//tecla w acabou de ser pressionada
+		gKeyState_w = KEY_PRESSED;
+		GPIO_incBar();
+	}else if(tCurrentKeyState_w == KEY_RELEASED && gKeyState_w ==  KEY_PRESSED){
+		//tecla w acabou de ser solta
+		gKeyState_w = KEY_RELEASED;
+	}
+	PORTC ^= (1<<PORTC0); //seta pino PC0 (nivel 1)
+	/*_delay_ms(100);
+	PORTC &= ~(1<<PORTC0); //zera pino PC0*/
+	
 }
 
 void PCINT_config(){
