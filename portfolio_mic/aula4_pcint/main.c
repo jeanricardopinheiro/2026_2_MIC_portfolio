@@ -4,28 +4,46 @@
  * Created: 9/3/2026 8:57:10 AM
  *  Author: Jean Ricardo Pinheiro
  */ 
-
+#define  F_CPU 16000000
 #include <xc.h>
-
-ISR(PCINT0_vect){
-	
-}
+#include "avr/interrupt.h"
+#include "util/delay.h"
 
 void GPIO_config(){
 	//mascara final: 0b1111 0000;
 	DDRB &= ~((1<<DDB0)|(1<<DDB1)|(1<<DDB2)|(1<<DDB3)); /*zera mascara, coloca 1 nos selecionados,
 	depois inverte, Portas PB0,PB1,PB2,PB3 como entrada*/
 	
-	//DDRD= 0xff; seta tudo como saida mesmo que 0b11111111
+	PORTB |= (1<<DDB0)|(1<<DDB1)|(1<<DDB2)|(1<<DDB3);  /*habilita o pullup para os pinos 
+	PB0,PB1,PB2,PB3 */
+	
+	//DDRD= 0xff; seta tudo como saida na porta D, mesmo que 0b11111111
 	DDRD |= ((1<<DDD0)|(1<<DDD1)|(1<<DDD2)|(1<<DDD3)|(1<<DDD4)|(1<<DDD5)|(1<<DDD6)|(1<<DDD7));
 	/*configura PD0,PD1,PD2,PD3,PD4,PD5,PD6,PD7 como saida*/
+	DDRC |= (1<<DDC0); //configura PC0 como saída
+}
+
+void GPIO_incBar(){
+	PORTD |= PORTD >> 1;
+	PORTD |= 0b10000000; // aciona o bit mais significativo
+}
+
+ISR(PCINT0_vect){
+	PORTC |= (1<<PORTC0); //seta pino PC0 (nivel 1)
+	_delay_ms(100);
+	PORTC &= ~(1<<PORTC0); //zera pino PC0
+	GPIO_incBar();
 }
 
 void PCINT_config(){
-	
+	PCICR |= (1<<PCIE0); // habilita o grupo 0 de vetores
+	PCMSK0 |= (1<<PCINT0)|(1<<PCINT1)|(1<<PCINT2)|(1<<PCINT3); //habilita interrupção para os pinos escolhidos
 }
 
 int main(void){
+	GPIO_config();
+	PCINT_config();
+	sei();
     while(1){
         //TODO:: Please write your application code 
     }
