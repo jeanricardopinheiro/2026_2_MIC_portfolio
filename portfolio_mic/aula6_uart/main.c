@@ -7,6 +7,9 @@
 #define  F_CPU 16000000
 #include <xc.h>
 #include "util/delay.h"
+
+char gMessage[16] = "Mensagem" ; //Null terminated strings (8 bytes + 1 byte de terminação nula)
+
 /*configuração do módulo USRT0 para o modo assíncrono , frame de 8 bits, pariedade par, BAUND de 9600*/
 void UART_config(){
 	UCSR0A = (0<<U2X0);							// modo "double speed" desativado
@@ -21,15 +24,25 @@ void UART_config(){
 		
 }
 /*Envia um byte na USATR*/
-void UART_send(){
-	UDR0 = 0x53; //envia um byte de exemplo
-	_delay_ms(2);
-	
+void UART_send_byte(uint8_t pByte){
+	// Aguardar espaço no buffer
+	while(( UCSR0A &  (1<<UDRE0) ) == 0);
+	UDR0 = pByte; //envia o byte do parametro
 }
+
+void UART_send_string(char *pString){
+	char *tMessagePtr = pString;
+	while(*tMessagePtr != 0){
+		UART_send_byte(*tMessagePtr);
+		tMessagePtr++;
+	}
+}
+
 int main(void){
 	UART_config();
 	
     while(1){
-        UART_send(); 
+		UART_send_string(gMessage);
+		_delay_ms(5); //tempo de silencio 
     }
 }
