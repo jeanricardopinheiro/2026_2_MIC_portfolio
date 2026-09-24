@@ -15,6 +15,8 @@ Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "aula5_avrdude", "aula5_avrd
 EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "aula6_uart", "aula6_uart\aula6_uart.cproj", "{DA841CC7-B762-4492-AF15-36B65038F9ED}"
 EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "aula7_uart_rx", "aula7_uart_rx\aula7_uart_rx.cproj", "{C0664A58-E1E6-45F2-AFB5-E0A8FBF8CE52}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|AVR = Debug|AVR
@@ -45,6 +47,10 @@ Global
 		{DA841CC7-B762-4492-AF15-36B65038F9ED}.Debug|AVR.Build.0 = Debug|AVR
 		{DA841CC7-B762-4492-AF15-36B65038F9ED}.Release|AVR.ActiveCfg = Release|AVR
 		{DA841CC7-B762-4492-AF15-36B65038F9ED}.Release|AVR.Build.0 = Release|AVR
+		{C0664A58-E1E6-45F2-AFB5-E0A8FBF8CE52}.Debug|AVR.ActiveCfg = Debug|AVR
+		{C0664A58-E1E6-45F2-AFB5-E0A8FBF8CE52}.Debug|AVR.Build.0 = Debug|AVR
+		{C0664A58-E1E6-45F2-AFB5-E0A8FBF8CE52}.Release|AVR.ActiveCfg = Release|AVR
+		{C0664A58-E1E6-45F2-AFB5-E0A8FBF8CE52}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

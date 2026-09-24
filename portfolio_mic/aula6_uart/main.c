@@ -16,7 +16,7 @@ void UART_config(){
 	UCSR0B = (0<<RXEN0)|(1<<TXEN0)|(0<<UCSZ02); //habilita o transmissor UART0, frame de 8 bits 
 	UCSR0C = (0<<UMSEL01)|(0<<UMSEL00)			//modo assincrono
 				|(1<<UPM01)|(0<<UPM00)			// habilita pariedade par
-				|(0<<USBS0)						//1 BIT DE STOP
+				|(1<<USBS0)						//2 BIT DE STOP
 				|(1<<UCSZ01)|(1<<UCSZ00)		// frame de 8 bits
 				|(0<<UCPOL0);					//polaridade do clock: ignorada
 				
@@ -36,6 +36,7 @@ void UART_send_string(char *pString){
 		UART_send_byte(*tMessagePtr);
 		tMessagePtr++;
 	}
+	UART_send_byte('\n'); //pula linha 
 }
 
 int main(void){
