@@ -6,8 +6,15 @@
  */ 
 #define  F_CPU 16000000
 #include <xc.h>
+#include <string.h>
 #include "util/delay.h"
 #include "avr/interrupt.h"
+
+#define RX_BUFFER_SIZE 16 // boas práticas
+
+uint8_t gMessage[RX_BUFFER_SIZE]; //buffer global da UART
+uint16_t gRxCounter = 0 ; //contagem de bytes recebidos
+uint8_t gMessageReady = 0;
 
 /*configuração do módulo USRT0 para o modo assíncrono , frame de 8 bits, pariedade par, BAUND varialvel*/
 void UART_config_rx(uint16_t pBAUND){
@@ -31,14 +38,14 @@ void GPIO_config(){
 
 ISR(USART_RX_vect){
 	uint8_t tReceivedByte = UDR0; //leitura do buffer UART
-	//Tratamendo da mensagem recebida
-	if(tReceivedByte == 'M'){
-		PORTC |= (1<<PORTC0); //led verde
-		}else{
-		PORTC |= (1<<PORTC1); //led vermelho
+	gMessage[gRxCounter] = tReceivedByte; //armazena byte a ser recebido no buffer
+	gRxCounter++;
+	if(gRxCounter == RX_BUFFER_SIZE){ //proteção contra estouro do buffer
+		gRxCounter = 0;
 	}
-	_delay_ms(1);
-	PORTC = 0; // apaga os leds que estiverem acessos
+	if(tReceivedByte == '\n'){
+		gMessageReady = 1; //flag de mensagem completa 
+	}
 }
 
 int main(void){
@@ -46,6 +53,16 @@ int main(void){
 	UART_config_rx(9600);
 	sei(); //habilita interrupções globais
     while(1){
-		
-    }
+		if(gMessageReady){ //aguarda mensagem completa
+			gMessageReady = 0;
+			//Tratamendo da mensagem recebida
+			if(strcmp(gMessage, "Messagem")){
+				PORTC |= (1<<PORTC0); //led verde
+				}else{
+				PORTC |= (1<<PORTC1); //led vermelho
+			}
+			_delay_ms(10);
+			PORTC = 0; // apaga os leds que estiverem acessos
+		}
+	}
 }
