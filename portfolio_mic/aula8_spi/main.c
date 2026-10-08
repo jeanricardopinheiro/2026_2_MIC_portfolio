@@ -13,10 +13,9 @@
 
 int main(void){
 	SPI_master_config();
-	uint8_t dado;
-	dado = 0x45;
+	SM28VLT_config();
     while(1){
-        SPI_transceive(dado);
+        uint16_t tMemoryData =SM28VLT_readword(1000);
 		_delay_ms(1);
     }
 }
