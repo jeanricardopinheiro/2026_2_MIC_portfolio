@@ -8,9 +8,14 @@
 #include <xc.h>
 #include "avr/interrupt.h"
 
+uint16_t gMilliseconds = 0;
+uint8_t gClockSeconds = 0;
+uint8_t gClockMinutes = 0;
+uint8_t gClockhours = 0;
+
 //objetivo: obter uma interupção com periodo de 10ms
 ISR(TIMER0_COMPA_vect){ // interrupção com periodo de 10ms (comparação A com timer)
-	PORTB ^=(1<<PORTB0); //altera estado PB3
+	gMilliseconds += 10;
 }
 
 void TMR0_config(){
@@ -25,6 +30,26 @@ int main(void){
 	TMR0_config();
 	sei();
     while(1){
-        
+		if(gMilliseconds<100){
+			PORTB |= (1<<PORTB0); //acende led por 100ms	
+		}else{
+			PORTB &= ~(1<<PORTB0);	//zera led por 900ms
+		}
+		//logica do RTC
+		if(gMilliseconds >= 1000){
+			gMilliseconds = 0;
+			gClockSeconds++;
+			if(gClockSeconds >= 60){
+				gClockSeconds= 0;
+				gClockMinutes++;
+				if (gClockMinutes >= 60){
+					gClockMinutes = 0;
+					gClockhours++;
+					if (gClockhours >= 24){
+						gClockhours = 0;
+					}
+				}
+			}
+		}
     }
 }
