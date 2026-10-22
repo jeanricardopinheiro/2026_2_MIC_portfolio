@@ -10,9 +10,9 @@
 #include "util\delay.h"
 
 void TWI_master_config(){
-	TWBR |= 64; // divisor de 64, fscl-100kHz
-	TWSR |= (0<<TWPS1)|(0<<TWPS0); // prescaler de 1
-	TWSR |= (1<<TWEN);	//
+	TWBR = 64; // divisor de 64, fscl-100kHz
+	TWSR &= ~((1 << TWPS1) | (1 << TWPS0)); // prescaler de 1
+	TWCR = (1 << TWEN);	//
 }
 
 int main(void){
