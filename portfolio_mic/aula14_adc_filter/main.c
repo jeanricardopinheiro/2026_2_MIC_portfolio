@@ -7,8 +7,12 @@
 #define F_CPU 16000000
 #include <xc.h>
 #include "avr/interrupt.h"
-	
+
+//filtro Butterworth de ordem 2 com corte em 0.114*Fs = 114Hz)
+const uint16_t b[3] = {1372, 2744, 1372}; //termos da funcao de transferencia
+const uint16_t a[2] = {-16899, 6002}; //termos da funcao de transferencia
 uint16_t x[4]; //medias do ADC
+uint16_t y[3]; //saida do filtro
 
 ISR(TIMER1_COMPB_vect){
 	PORTB ^= (1<<PORTB1); //debug para 
@@ -17,12 +21,14 @@ ISR(TIMER1_COMPB_vect){
 ISR(ADC_vect){ //interupção referente a converrsao concluida
 	PORTB |= (1<<PORTB1);
 	uint16_t tADCData = ADC;
-		
-	x[3] = x[2]; //linha de atraso
+	
+	//linha de atraso para sinais x e y
 	x[2] = x[1];
 	x[1] = x[0];
 	x[0] = tADCData;
-	uint16_t y = (x[0] +x[1] +x[2] +x[3])/4; //filtro média movel de ordem 4
+	y[2] = y[1];
+	y[1] = y[0];
+	y[0] = b[0] * x[0] + b[1]*x[1] + b[2]*x[2] - a[0]*y[1] - a[1]*y[2];
 		
 	//ADCSRA |= (1<<ADIF); //limpa a flag para tentar encontrar o erro da simulacao
 	//acender led abaixo de 720mV
