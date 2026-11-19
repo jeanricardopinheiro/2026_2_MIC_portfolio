@@ -10,12 +10,11 @@
 #include <xc.h>
 
 void ADC_config() {
-	ADMUX = (0<<MUX3) | (1<<MUX2) | (1<<MUX1) | (1<<MUX0) // canal de conversao ; pino adc7
-			| (1<<REFS0) | (1<<REFS1); //canal de referencia interna de 1.1V
+	ADMUX = (0<<MUX3) | (0<<MUX2) | (0<<MUX1) | (0<<MUX0) // canal de conversao ; pino adc0
+	| (1<<REFS0) | (1<<REFS1); //canal de referencia interna de 1.1V
 	ADCSRA = (1<<ADEN) | (0<<ADATE) // habilida o adc em modo "manual"
-			| (1<<ADPS2)| (1<<ADPS1) | (1<<ADPS0); //fator de prescale de 128(adc operando em 125kHz)
-	
-	
+	| (1<<ADPS2)| (1<<ADPS1) | (1<<ADPS0); //fator de prescale de 128(adc operando em 125kHz)
+	DIDR0 = (1<<ADC0D); //desabilita porta pc0
 }
 
 int main(void){

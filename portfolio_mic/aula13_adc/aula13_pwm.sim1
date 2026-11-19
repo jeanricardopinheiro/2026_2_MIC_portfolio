@@ -6,16 +6,20 @@
 
 <item itemtype="Ground" CircId="Ground-4" mainComp="false" Show_id="false" Show_Val="false" Pos="-276,92" rotation="0" hflip="1" vflip="1" label="Ground-4" idLabPos="-16,8" labelrot="0" valLabPos="-16,20" valLabRot="0" />
 
-<item itemtype="Voltage Source" CircId="Voltage Source-2" mainComp="false" ShowProp="MaxValue" Show_id="false" Show_Val="true" Pos="-176,-144" rotation="0" hflip="1" vflip="1" label="Voltage Source-2" idLabPos="-32,-48" labelrot="0" valLabPos="-8,30" valLabRot="0" Running="true" Value_Volt="0.0693 V" MaxValue="1.1 V" MinValue="0 V" />
+<item itemtype="Resistor" CircId="Resistor-5" mainComp="false" ShowProp="Resistance" Show_id="false" Show_Val="true" Pos="-276,44" rotation="90" hflip="1" vflip="1" label="Resistor-5" idLabPos="-16,-24" labelrot="0" valLabPos="-16,6" valLabRot="0" Resistance="250 Ω" />
 
-<item itemtype="Resistor" CircId="Resistor-5" mainComp="false" ShowProp="Resistance" Show_id="false" Show_Val="true" Pos="-276,44" rotation="90" hflip="1" vflip="1" label="Resistor-5" idLabPos="-16,-24" labelrot="0" valLabPos="-16,6" valLabRot="0" Resistance="100 Ω" />
+<item itemtype="Voltage Source" CircId="Voltage Source-6" mainComp="false" ShowProp="MaxValue" Show_id="false" Show_Val="true" Pos="-172,-136" rotation="0" hflip="1" vflip="1" label="Voltage Source-6" idLabPos="-32,-48" labelrot="0" valLabPos="-8,30" valLabRot="0" Running="true" Value_Volt="1.1 V" MaxValue="1.1 V" MinValue="0 V" />
+
+<item itemtype="Fixed Voltage" CircId="Fixed Voltage-8" mainComp="false" ShowProp="Voltage" Show_id="false" Show_Val="true" Pos="-132,-60" rotation="-180" hflip="1" vflip="1" label="Fixed Voltage-8" idLabPos="-64,-24" labelrot="0" valLabPos="-16,8" valLabRot="0" Voltage="5 V" Out="true" />
 
 <item itemtype="Connector" uid="Connector-1" startpinid="m328 TQFP-1-PORTB0" endpinid="Led-3-lPin" pointList="-276,-28,-276,-16" />
-
-<item itemtype="Connector" uid="Connector-3" startpinid="m328 TQFP-1-PORTV3" endpinid="Voltage Source-2-outPin" pointList="-220,-92,-148,-92,-148,-128" />
 
 <item itemtype="Connector" uid="Connector-4" startpinid="Led-3-rPin" endpinid="Resistor-5-lPin" pointList="-276,16,-276,28" />
 
 <item itemtype="Connector" uid="Connector-5" startpinid="Resistor-5-rPin" endpinid="Ground-4-Gnd" pointList="-276,60,-276,76" />
+
+<item itemtype="Connector" uid="Connector-7" startpinid="m328 TQFP-1-PORTV3" endpinid="Voltage Source-6-outPin" pointList="-220,-92,-144,-92,-144,-120" />
+
+<item itemtype="Connector" uid="Connector-8" startpinid="Fixed Voltage-8-outnod" endpinid="m328 TQFP-1-PORTV0" pointList="-148,-60,-220,-60" />
 
 </circuit>

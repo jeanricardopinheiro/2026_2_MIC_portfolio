@@ -1,0 +1,41 @@
+<circuit version="1.1.0-SR2" rev="260312" stepSize="1000000" stepsPS="1000000" NLsteps="100000" reaStep="1000000" animate="0" >
+
+<item itemtype="MCU" CircId="mega328PB-1" mainComp="false" Show_id="true" Show_Val="false" Pos="-360,-104" rotation="0" hflip="1" vflip="1" label="mega328PB-1" idLabPos="0,-20" labelrot="0" valLabPos="-16,20" valLabRot="0" Frequency="16 MHz" Auto_Load="false" saveEepr="true" Ext_Osc="false" Wdt_enabled="false" Clk_Out="false" MainMcu="true" SerialMon="-1" />
+
+<item itemtype="Led" CircId="Led-2" mainComp="false" Show_id="false" Show_Val="false" Pos="-292,44" rotation="0" hflip="1" vflip="1" label="Led-2" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Color="Yellow" Grounded="false" Threshold="2.4 V" MaxCurrent="30 mA" Resistance="0.6 Ω" />
+
+<item itemtype="Led" CircId="Led-3" mainComp="false" Show_id="false" Show_Val="false" Pos="-292,16" rotation="0" hflip="1" vflip="1" label="Led-3" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Color="Yellow" Grounded="false" Threshold="2.4 V" MaxCurrent="30 mA" Resistance="0.6 Ω" />
+
+<item itemtype="Resistor" CircId="Resistor-4" mainComp="false" ShowProp="Resistance" Show_id="false" Show_Val="true" Pos="-248,16" rotation="0" hflip="1" vflip="1" label="Resistor-4" idLabPos="-16,-24" labelrot="0" valLabPos="-16,6" valLabRot="0" Resistance="100 Ω" />
+
+<item itemtype="Resistor" CircId="Resistor-5" mainComp="false" ShowProp="Resistance" Show_id="false" Show_Val="true" Pos="-248,44" rotation="0" hflip="1" vflip="1" label="Resistor-5" idLabPos="-16,-24" labelrot="0" valLabPos="-16,6" valLabRot="0" Resistance="100 Ω" />
+
+<item itemtype="Ground" CircId="Ground-7" mainComp="false" Show_id="false" Show_Val="false" Pos="-220,76" rotation="0" hflip="1" vflip="1" label="Ground-7" idLabPos="-16,8" labelrot="0" valLabPos="-16,20" valLabRot="0" />
+
+<item itemtype="Oscope" CircId="Oscope-8" mainComp="false" Show_id="false" Show_Val="false" Pos="-80,52" rotation="0" hflip="1" vflip="1" label="Oscope-8" idLabPos="-90,-100" labelrot="0" valLabPos="-16,20" valLabRot="0" Basic_X="135 _px" Basic_Y="135 _px" BufferSize="600000" connectGnd="true" InputImped="10 MΩ" TimDiv="1000000000" TimPos="0,0,0,0," VolDiv="1,1,1,1," Tunnels=",,,," Trigger="4" Filter="0.1 V" AutoSC="4" Tracks="1" HideCh="false,false,false,false," VolPos="0,0,0,0," />
+
+<item itemtype="Node" CircId="Node-9" mainComp="false" Pos="-220,48" />
+
+<item itemtype="Node" CircId="Node-11" mainComp="false" Pos="-312,0" />
+
+<item itemtype="Connector" uid="Connector-1" startpinid="mega328PB-1-PORTB0" endpinid="Led-2-lPin" pointList="-320,-8,-320,44,-308,44" />
+
+<item itemtype="Connector" uid="Connector-3" startpinid="Led-3-rPin" endpinid="Resistor-4-lPin" pointList="-276,16,-264,16" />
+
+<item itemtype="Connector" uid="Connector-4" startpinid="Led-2-rPin" endpinid="Resistor-5-lPin" pointList="-276,44,-264,44" />
+
+<item itemtype="Connector" uid="Connector-6" startpinid="Resistor-5-rPin" endpinid="Node-9-1" pointList="-232,44,-220,44,-220,48" />
+
+<item itemtype="Connector" uid="Connector-8" startpinid="Node-9-2" endpinid="Ground-7-Gnd" pointList="-220,48,-220,60" />
+
+<item itemtype="Connector" uid="Connector-7" startpinid="Resistor-4-rPin" endpinid="Node-9-0" pointList="-232,16,-220,16,-220,48" />
+
+<item itemtype="Connector" uid="Connector-14" startpinid="Oscope-8-Pin0" endpinid="Node-11-1" pointList="-168,4,-312,4,-312,0" />
+
+<item itemtype="Connector" uid="Connector-15" startpinid="mega328PB-1-PORTB1" endpinid="Node-11-0" pointList="-312,-8,-312,0" />
+
+<item itemtype="Connector" uid="Connector-16" startpinid="Node-11-2" endpinid="Led-3-lPin" pointList="-312,0,-312,16,-308,16" />
+
+<item itemtype="Connector" uid="Connector-17" startpinid="Oscope-8-Pin3" endpinid="Oscope-8-Pin3" pointList="-168,100,-168,100" />
+
+</circuit>
